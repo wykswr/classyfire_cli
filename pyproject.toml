@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "classyfire-cli"
+version = "0.1.0"
+description = "classyfire commandline tool"
+authors = ["wangyk <wangyukai159@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.32.3"
+click = "^8.1.7"
+rdkit = "^2024.3.5"
+tqdm = "^4.66.5"
+
+[tool.poetry.scripts]
+classyfire = "classyfire_cli.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

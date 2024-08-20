@@ -1,4 +1,5 @@
-from api import get_results, structure_query
+from .api import get_results, structure_query
+from .utils import take_class, MoleCule
 import json
 import time
 from tqdm import tqdm
@@ -28,7 +29,7 @@ class Job:
     def parse_results(self) -> list[dict]:
         result = json.loads(get_results(self.query_id))
         return result["entities"]
-
+    
 
 class Scheduler:
     """
@@ -72,8 +73,22 @@ class Scheduler:
 
         pbar.close()
 
-    def export(self) -> list[dict]:
+    def _aggregate(self) -> list[dict]:
         aggregation = []
         for _, results in self.results.items():
             aggregation.extend(results)
         return aggregation
+
+    def export(self) -> dict[str, dict]:
+        result = {}
+        for record in self._aggregate():
+            smiles = MoleCule.from_smiles(record['smiles']).canonical_smiles
+            superclasses = take_class(record['superclass'])
+            classes = take_class(record['class'])
+            subclasses = take_class(record['subclass'])
+            result[smiles] = {
+                "superclass": superclasses,
+                "class": classes,
+                "subclass": subclasses
+            }
+        return result
