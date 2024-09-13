@@ -34,7 +34,7 @@ def main(identifier, input, output):
     click.echo('Exporting results...')
     result = scheduler.export()
     smiles2identifier = dict(zip(smiles_list, identifiers))
-    result = {smiles2identifier[k]: v for k, v in result.items()}
+    result = {smiles2identifier.get(k, k): v for k, v in result.items()}
     output_suffix = output.name.split('.')[-1]
     if output_suffix == 'json':
         json.dump(result, output)

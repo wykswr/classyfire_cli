@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "classyfire-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "classyfire commandline tool"
-authors = ["wangyk <wangyukai159@outlook.com>"]
+authors = ["Yukai <wangyk22@student.ubc.ca>"]
 license = "MIT"
 readme = "README.md"
 
